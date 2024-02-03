@@ -1,0 +1,35 @@
+{
+  "name": "gsweb",
+  "version": "0.0.1",
+  "description": "frontend webserver for gameshow",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node dist/index.js",
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kyunashi/gsweb.git"
+  },
+  "author": "kyew",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Kyunashi/gsweb/issues"
+  },
+  "homepage": "https://github.com/Kyunashi/gsweb#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.16",
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.3",
+    "typescript": "^5.3.3"
+  }
+}
