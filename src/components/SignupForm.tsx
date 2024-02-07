@@ -1,28 +1,17 @@
 import React from 'react'
 
-const LoginForm: React.FC = () => {
+const SignupForm: React.FC = () => {
+
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
-
+    const [repeatpwd, setRepeatpwd] = React.useState('');
+    const [email, setEmail] = React.useState('');
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         console.log('username: ', username);
         console.log('password: ', password);
-        // if login success -> redirect to home oder so
-        fetch('localhost:8080/api/auth/login', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password,
-            })
-        }).then(function (response) {
-            console.log(response)
-        })
     };
+
     return (
         <form onSubmit={handleSubmit}>
             <label>
@@ -33,9 +22,17 @@ const LoginForm: React.FC = () => {
                 Password:
                 <input type="password" value={password} onChange={(event) => setPassword(event.target.value)}/>
             </label>
-            <button type="submit">Login</button>
-        </form>
-    );
-};
+            <label>
+                Repeat Password:
+                <input type="password" value={repeatpwd} onChange={(event) => setRepeatpwd(event.target.value)}/>
+            </label>
+            <label>
+                Email:
+                <input type="text" value={email} onChange={(event) => setEmail(event.target.value)}/>
+            </label>
+            <button type="submit">Register</button>
+        </form>);
+}
 
-export default LoginForm
+
+export default SignupForm;
