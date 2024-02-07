@@ -1,10 +1,12 @@
 import React from 'react';
 import './App.css';
+import LoginForm from "./components/LoginForm";
 
-function App() {
+const App: React.FC = () =>{
   return (
-    <div className="App">
-    Hello World
+    <div className="app">
+      <span className="heading">Q's Gameshow</span>
+      <LoginForm />
     </div>
   );
 }
