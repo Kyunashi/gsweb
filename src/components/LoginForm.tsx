@@ -20,6 +20,7 @@ const LoginForm: React.FC = () => {
 
         fetch('http://localhost:8080/api/auth/login', {
             method: 'POST',
+            credentials: "include",
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -50,7 +51,8 @@ const LoginForm: React.FC = () => {
 
     const handleLogout = () => {
         fetch('http://localhost:8080/api/auth/logout', {
-            method: 'Post'
+            method: 'Post',
+            credentials: "include"
         })
             .then(response => {
                 if(response.ok) {
