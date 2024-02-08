@@ -5,9 +5,12 @@ const LoginForm: React.FC = () => {
     const [password, setPassword] = React.useState('');
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
-    // useEffect(() => {
-    //     const isAuthenticated
-    // })
+    React.useEffect(() => {
+        const isAuthenticated = localStorage.getItem('isLoggedIn');
+        if(isAuthenticated) {
+            setIsLoggedIn(true);
+        }
+    })
 
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -32,6 +35,7 @@ const LoginForm: React.FC = () => {
             .then(response => {
                 if (response.ok) {
                     setIsLoggedIn(true);
+                    localStorage.setItem('isLoggedIn', 'true')
                     console.log('Login successful')
                     console.log(JSON.stringify({
                         "username": username,
@@ -55,6 +59,7 @@ const LoginForm: React.FC = () => {
             credentials: "include"
         })
             .then(response => {
+                    localStorage.removeItem('isLoggedIn')
                 if(response.ok) {
                     setIsLoggedIn(false);
                     console.log('Logout successful')
