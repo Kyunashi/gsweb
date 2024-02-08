@@ -7,7 +7,8 @@ const App: React.FC = () =>{
   return (
     <div className="app">
       <span className="heading">Q's Gameshow</span>
-      <LoginForm />
+      <LoginForm/>
+
       <SignupForm/>
     </div>
   );

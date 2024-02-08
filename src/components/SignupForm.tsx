@@ -23,7 +23,7 @@ const SignupForm: React.FC = () => {
                 <input type="password" value={password} onChange={(event) => setPassword(event.target.value)}/>
             </label>
             <label>
-                Repeat Password:
+                Confirm Password:
                 <input type="password" value={repeatpwd} onChange={(event) => setRepeatpwd(event.target.value)}/>
             </label>
             <label>
