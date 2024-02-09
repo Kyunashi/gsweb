@@ -10,7 +10,7 @@ const LoginForm: React.FC = () => {
         if(isAuthenticated) {
             setIsLoggedIn(true);
         }
-    })
+    }, [])
 
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -21,9 +21,10 @@ const LoginForm: React.FC = () => {
 
 
 
-        fetch('http://localhost:8080/api/auth/login', {
+        fetch('http://192.168.178.42:8080/api/auth/login', {
             method: 'POST',
             credentials: "include",
+            referrerPolicy:"origin",
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -54,9 +55,10 @@ const LoginForm: React.FC = () => {
     };
 
     const handleLogout = () => {
-        fetch('http://localhost:8080/api/auth/logout', {
+        fetch('http://192.168.178.42:8080/api/auth/logout', {
             method: 'Post',
-            credentials: "include"
+            credentials: "include",
+            referrerPolicy:"",
         })
             .then(response => {
                     localStorage.removeItem('isLoggedIn')
