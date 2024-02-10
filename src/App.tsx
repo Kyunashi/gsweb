@@ -20,7 +20,6 @@ const App: React.FC = () =>{
     };
 
     React.useEffect(() => {
-        const isAuthenticated = localStorage.getItem('isLoggedIn');
         checkAuthentication()
     }, [])
 
@@ -48,8 +47,6 @@ const App: React.FC = () =>{
     }
 
     const handleLogin = () => {
-        // TODO EITHER VIA STATE OR REDIRECT TO LOGIN ENDPOINT?
-
         if(!isLoggedIn) {
         setIsLoggingIn(true)};
         setIsSigningUp(false);
@@ -63,29 +60,36 @@ const App: React.FC = () =>{
 
     }
 
-
-    function handleLoginSuccess() {
+    const handleLoginSuccess = () => {
         setIsLoggedIn(true);
         setIsLoggingIn(false);
+        setIsSigningUp(false);
         localStorage.setItem('isLoggedIn', 'true')
         console.log('Login successful')
+    }
+
+    const handleHome = () => {
+
+        setIsLoggingIn(false);
+        setIsSigningUp(false);
+
 
     }
 
     return (
       <div className="app">
-          <span className="heading">Q's Gameshow</span>
+          <span onClick={handleHome} className="heading">Q's Gameshow</span>
           {isLoggedIn ? (
               <div>
                   <button className="btnlogout" onClick={handleLogout}>Logout</button>
-                  <p> You are logged in!</p>
               </div>
           ) : (
              <div>
-                 {!isLoggingIn ? <button className="btnlogin" onClick={handleLogin} type="submit">Login</button> : null}
-                 {!isSigningUp ? <button className="btnsignup" onClick={handleSignup} type="submit">Signup</button> : null}
+                 {!isLoggingIn ? <button className="btnlogin" onClick={handleLogin} type="submit">login</button> : null}
+                 {!isSigningUp ? <button className="btnsignup" onClick={handleSignup} type="submit">sign up</button> : null}
              </div>
         )}
+
 
 
         {isLoggingIn  ? <LoginForm onLoginSuccess={handleLoginSuccess}/> : null}
