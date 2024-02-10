@@ -3,14 +3,6 @@ import React from 'react'
 const LoginForm: React.FC = () => {
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-
-    React.useEffect(() => {
-        const isAuthenticated = localStorage.getItem('isLoggedIn');
-        if(isAuthenticated) {
-            setIsLoggedIn(true);
-        }
-    }, [])
 
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -18,7 +10,6 @@ const LoginForm: React.FC = () => {
 
         console.log('username: ', username);
         console.log('password: ', password);
-
 
 
         fetch('http://192.168.178.42:8080/api/auth/login', {
@@ -35,7 +26,7 @@ const LoginForm: React.FC = () => {
         })
             .then(response => {
                 if (response.ok) {
-                    setIsLoggedIn(true);
+                    // setIsLoggedIn(true);
                     localStorage.setItem('isLoggedIn', 'true')
                     console.log('Login successful')
                     console.log(JSON.stringify({
@@ -50,41 +41,11 @@ const LoginForm: React.FC = () => {
             .catch(error => {
                 console.error('Error:', error);
             });
-
-
     };
-
-    const handleLogout = () => {
-        fetch('http://192.168.178.42:8080/api/auth/logout', {
-            method: 'Post',
-            credentials: "include",
-            referrerPolicy:"",
-        })
-            .then(response => {
-                    localStorage.removeItem('isLoggedIn')
-                if(response.ok) {
-                    setIsLoggedIn(false);
-                    console.log('Logout successful')
-                } else {
-                    console.log('Logout failed');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
 
 
     return (
         <div>
-            {isLoggedIn?  (
-                <div>
-                    <p> You are logged in!</p>
-                    <button onClick={handleLogout}>Logout</button>
-                </div>
-
-
-            ) : (
                 <form onSubmit={handleSubmit}>
                     <label>
                         Username:
@@ -96,10 +57,7 @@ const LoginForm: React.FC = () => {
                     </label>
                     <button type="submit">Login</button>
                 </form>
-            )}
         </div>
-
-
     );
 };
 
