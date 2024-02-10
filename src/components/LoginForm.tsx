@@ -1,6 +1,10 @@
 import React from 'react'
 
-const LoginForm: React.FC = () => {
+interface LoginFormProps {
+    onLoginSuccess: () => void;
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({onLoginSuccess}) => {
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
 
@@ -27,8 +31,9 @@ const LoginForm: React.FC = () => {
             .then(response => {
                 if (response.ok) {
                     // setIsLoggedIn(true);
-                    localStorage.setItem('isLoggedIn', 'true')
-                    console.log('Login successful')
+
+                    onLoginSuccess();
+
                     console.log(JSON.stringify({
                         "username": username,
                         "password": password,

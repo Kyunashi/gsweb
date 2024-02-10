@@ -5,18 +5,24 @@ import SignupForm from "./components/SignupForm"
 
 const App: React.FC = () =>{
 
-    const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-    const [isLogginIn, setIsLogginIn] = React.useState(false);
+    const [isLoggedIn, setIsLoggedIn] = React.useState(() => {
+        return localStorage.getItem('isLoggedIn') === 'true';
+    });;
+    const [isLoggingIn, setIsLoggingIn] = React.useState(false);
     const [isSigningUp, setIsSigningUp] = React.useState(false);
+
+    const checkAuthentication = () => {
+        const isAuthenticated = localStorage.getItem('isLoggedIn');
+        setIsLoggedIn(!!isAuthenticated);
+        setIsLoggingIn(false);
+        setIsSigningUp(false);
+        // if(isAuthenticated) {}
+    };
 
     React.useEffect(() => {
         const isAuthenticated = localStorage.getItem('isLoggedIn');
-        if(isAuthenticated) {
-            setIsLoggedIn(true);
-            setIsLogginIn(false);
-            setIsSigningUp(false);
-        }
-    } )
+        checkAuthentication()
+    }, [])
 
 
     const handleLogout = () => {
@@ -30,6 +36,7 @@ const App: React.FC = () =>{
                 if(response.ok) {
                      setIsLoggedIn(false);
                      setIsSigningUp(false);
+                     localStorage.removeItem('isLoggedIn');
                     console.log('Logout successful')
                 } else {
                     console.log('Logout failed');
@@ -44,21 +51,28 @@ const App: React.FC = () =>{
         // TODO EITHER VIA STATE OR REDIRECT TO LOGIN ENDPOINT?
 
         if(!isLoggedIn) {
-        setIsLogginIn(true)};
+        setIsLoggingIn(true)};
         setIsSigningUp(false);
     }
 
 
     const handleSignup = () => {
-        setIsLogginIn(false);
+        setIsLoggingIn(false);
         setIsSigningUp(true);
 
 
     }
 
 
+    function handleLoginSuccess() {
+        setIsLoggedIn(true);
+        setIsLoggingIn(false);
+        localStorage.setItem('isLoggedIn', 'true')
+        console.log('Login successful')
 
-  return (
+    }
+
+    return (
       <div className="app">
           <span className="heading">Q's Gameshow</span>
           {isLoggedIn ? (
@@ -68,13 +82,13 @@ const App: React.FC = () =>{
               </div>
           ) : (
              <div>
-                 {!isLogginIn ? <button className="btnlogin" onClick={handleLogin} type="submit">Login</button> : null}
+                 {!isLoggingIn ? <button className="btnlogin" onClick={handleLogin} type="submit">Login</button> : null}
                  {!isSigningUp ? <button className="btnsignup" onClick={handleSignup} type="submit">Signup</button> : null}
              </div>
         )}
 
 
-        {isLogginIn  ? <LoginForm/> : null}
+        {isLoggingIn  ? <LoginForm onLoginSuccess={handleLoginSuccess}/> : null}
         {isSigningUp ? <SignupForm/>: null}
 
       </div>
