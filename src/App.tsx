@@ -7,7 +7,7 @@ const App: React.FC = () =>{
 
     const [isLoggedIn, setIsLoggedIn] = React.useState(() => {
         return localStorage.getItem('isLoggedIn') === 'true';
-    });;
+    });
     const [isLoggingIn, setIsLoggingIn] = React.useState(false);
     const [isSigningUp, setIsSigningUp] = React.useState(false);
 
@@ -47,8 +47,7 @@ const App: React.FC = () =>{
     }
 
     const handleLogin = () => {
-        if(!isLoggedIn) {
-        setIsLoggingIn(true)};
+        setIsLoggingIn(true);
         setIsSigningUp(false);
     }
 
@@ -56,8 +55,6 @@ const App: React.FC = () =>{
     const handleSignup = () => {
         setIsLoggingIn(false);
         setIsSigningUp(true);
-
-
     }
 
     const handleLoginSuccess = () => {
@@ -69,11 +66,8 @@ const App: React.FC = () =>{
     }
 
     const handleHome = () => {
-
         setIsLoggingIn(false);
         setIsSigningUp(false);
-
-
     }
 
     const handleSignupSuccess = () => {
@@ -96,11 +90,8 @@ const App: React.FC = () =>{
              </div>
         )}
 
-
-
         {isLoggingIn  ? <LoginForm onLoginSuccess={handleLoginSuccess}/> : null}
         {isSigningUp ? <SignupForm onSignupSuccess={handleSignupSuccess}/>: null}
-
       </div>
   );
 }
