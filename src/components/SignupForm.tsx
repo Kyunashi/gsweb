@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 
 interface SignupFormProps {
@@ -8,34 +8,36 @@ interface SignupFormProps {
 
 const SignupForm: React.FC<SignupFormProps> = ({onSignupSuccess}) => {
 
-    const [username, setUsername] = React.useState('');
-    const [password, setPassword] = React.useState('');
-    const [repeatpwd, setRepeatpwd] = React.useState('');
-    const [email, setEmail] = React.useState('');
-    const [usernameTaken, setUsernameTaken] = React.useState(false);
-    const [validationErrors, setValidationErrors] = React.useState({
+
+    const [formData, setFormData] = useState({
+        username: '',
+        email: '',
+        password: '',
+        repeatPassword: '',
+    });
+    const [usernameTaken, setUsernameTaken] = useState(false);
+    const [validationErrors, setValidationErrors] = useState({
         passwordMissmatch: false,
         passwordTooShort: false,
         emailInvalid: false,
         usernameInvalid: false
     });
     // TODO EMAIL VALIDATION (has @, ends on known ending) patter?
-    // TODO USE HOOKS/STATE INSTEAD OF ACCEPTED() METHODS?
 
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const passwordTooShort = password.length <= 5;
-        const passwordMissmatch = !(password === repeatpwd);
-        const usernameInvalid = !(username.length >= 3 && /^[0-9A-Za-z]+$/.test(username));
-        const emailInvalid = email.length <=5;
+        const passwordTooShort = formData.password.length <= 5;
+        const passwordMissmatch = !(formData.password === formData.repeatPassword);
+        const usernameInvalid = !(formData.username.length >= 3 && /^[0-9A-Za-z]+$/.test(formData.username));
+        const emailInvalid = formData.email.length <=5;
 
         setValidationErrors({
             passwordTooShort,
             passwordMissmatch,
-            usernameInvalid,
-            emailInvalid
+            emailInvalid,
+            usernameInvalid
         });
 
         if(passwordTooShort || passwordMissmatch || usernameInvalid || emailInvalid) {
@@ -48,9 +50,9 @@ const SignupForm: React.FC<SignupFormProps> = ({onSignupSuccess}) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                email: email,
-                username: username,
-                password: password
+                email: formData.email,
+                username: formData.username,
+                password: formData.password
             }),
         })
             .then(response => {
@@ -75,20 +77,47 @@ const SignupForm: React.FC<SignupFormProps> = ({onSignupSuccess}) => {
         <form onSubmit={handleSubmit}>
             <label>
                 Username:
-                <input type="text" maxLength={12} value={username}
-                       onChange={(event) => setUsername(event.target.value)}/>
+                <input type="text" maxLength={12} value={formData.username}
+                       onChange={event => {
+                           setFormData({
+                               ...formData,
+                               username: event.target.value
+                           })
+                       }}
+                />
             </label>
             <label>
                 Email:
-                <input type="text" value={email} onChange={(event) => setEmail(event.target.value)}/>
+                <input type="text" value={formData.email}
+                       onChange={(event) =>{
+                            setFormData({
+                                ...formData,
+                                email: event.target.value
+                            })
+                        }}
+                />
             </label>
             <label>
                 Password:
-                <input type="password" value={password} onChange={(event) => setPassword(event.target.value)}/>
+                <input type="password" value={formData.password}
+                       onChange={(event) => {
+                           setFormData({
+                               ...formData,
+                               password: event.target.value
+                           })
+                       }}
+                />
             </label>
             <label>
                 Confirm:
-                <input type="password" value={repeatpwd} onChange={(event) => setRepeatpwd(event.target.value)}/>
+                <input type="password" value={formData.repeatPassword}
+                       onChange={(event) => {
+                           setFormData({
+                               ...formData,
+                               repeatPassword: event.target.value
+                           })
+                       }}
+                />
             </label>
             <button type="submit" className={"btnregister"}>Register</button>
             {validationErrors.passwordTooShort ? (<label className={"lblpwdtooshort"}>password is too short </label>) : null}
@@ -96,8 +125,6 @@ const SignupForm: React.FC<SignupFormProps> = ({onSignupSuccess}) => {
             {validationErrors.usernameInvalid ? (<label className={"lblusernameinvalid"}>username has to be 3 or more ALPHANUMERIC characters </label>) : null}
             {validationErrors.emailInvalid ? (<label className={"lblemailinvalid"}>email has to be more than 5 characters</label>) : null}
             {usernameTaken ? (<label className={"lblusernametaken"}>username is taken </label>) : null}
-
-
         </form>);
 }
 
