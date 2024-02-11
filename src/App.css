@@ -28,6 +28,8 @@
     right: 0;
     width: 87px;
     margin: 30px;
+    font-size: 15px;
+    font-family: "Poor Story", cursive;
 }
 
 .btnlogin:hover {
@@ -40,10 +42,12 @@
     background-color: yellow;
     color: black;
     position: fixed;
-    top: 40px;
+    top: 43px;
     right: 0;
     width: 87px;
     margin: 30px;
+    font-size: 15px;
+    font-family: "Poor Story", cursive;
 }
 .btnsignup:hover {
     border: 2px solid slategrey;
@@ -58,6 +62,8 @@
     right: 0;
     width: 87px;
     margin: 30px;
+
+    font-family: "Poor Story", cursive;
 }
 
 .btnlogout:hover {

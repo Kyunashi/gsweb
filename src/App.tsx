@@ -76,16 +76,22 @@ const App: React.FC = () =>{
 
     }
 
+    const handleSignupSuccess = () => {
+        setIsSigningUp(false);
+        setIsLoggingIn(true);
+    };
+
+
     return (
       <div className="app">
           <span onClick={handleHome} className="heading">Q's Gameshow</span>
           {isLoggedIn ? (
               <div>
-                  <button className="btnlogout" onClick={handleLogout}>Logout</button>
+                  <button className="btnlogout" onClick={handleLogout}>logout</button>
               </div>
           ) : (
              <div>
-                 {!isLoggingIn ? <button className="btnlogin" onClick={handleLogin} type="submit">login</button> : null}
+                 {!isLoggingIn ? <button className="btnlogin" onClick={handleLogin} type="submit">log in</button> : null}
                  {!isSigningUp ? <button className="btnsignup" onClick={handleSignup} type="submit">sign up</button> : null}
              </div>
         )}
@@ -93,7 +99,7 @@ const App: React.FC = () =>{
 
 
         {isLoggingIn  ? <LoginForm onLoginSuccess={handleLoginSuccess}/> : null}
-        {isSigningUp ? <SignupForm/>: null}
+        {isSigningUp ? <SignupForm onSignupSuccess={handleSignupSuccess}/>: null}
 
       </div>
   );

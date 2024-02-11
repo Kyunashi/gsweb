@@ -31,6 +31,8 @@ const LoginForm: React.FC<LoginFormProps> = ({onLoginSuccess}) => {
             .then(response => {
                 if (response.ok) {
                     onLoginSuccess();
+                    setUsername('');
+                    setPassword('');
                     console.log(JSON.stringify({
                         "username": username.toLowerCase(),
                         "password": password,
