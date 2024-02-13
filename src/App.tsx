@@ -8,15 +8,15 @@ const App: React.FC = () =>{
     const [isLoggedIn, setIsLoggedIn] = React.useState(() => {
         return localStorage.getItem('isLoggedIn') === 'true';
     });
-    const [isLoggingIn, setIsLoggingIn] = React.useState(false);
-    const [isSigningUp, setIsSigningUp] = React.useState(false);
+    const [status, setStatus] = React.useState('home');
+
+    const isLoggingIn = status === 'login';
+    const isSigningUp = status === 'signup';
+    const isHome = status === 'home';
 
     const checkAuthentication = () => {
         const isAuthenticated = localStorage.getItem('isLoggedIn');
         setIsLoggedIn(!!isAuthenticated);
-        setIsLoggingIn(false);
-        setIsSigningUp(false);
-        // if(isAuthenticated) {}
     };
 
     React.useEffect(() => {
@@ -28,15 +28,14 @@ const App: React.FC = () =>{
         fetch('http://192.168.178.42:8080/api/auth/logout', {
             method: 'Post',
             credentials: "include",
-            referrerPolicy:"",
         })
             .then(response => {
                 localStorage.removeItem('isLoggedIn')
                 if(response.ok) {
                      setIsLoggedIn(false);
-                     setIsSigningUp(false);
+                     setStatus('home');
                      localStorage.removeItem('isLoggedIn');
-                    console.log('Logout successful')
+                     console.log('Logout successful')
                 } else {
                     console.log('Logout failed');
                 }
@@ -47,32 +46,27 @@ const App: React.FC = () =>{
     }
 
     const handleLogin = () => {
-        setIsLoggingIn(true);
-        setIsSigningUp(false);
+        setStatus('login')
     }
 
 
     const handleSignup = () => {
-        setIsLoggingIn(false);
-        setIsSigningUp(true);
+        setStatus('signup')
     }
 
     const handleLoginSuccess = () => {
         setIsLoggedIn(true);
-        setIsLoggingIn(false);
-        setIsSigningUp(false);
+        setStatus('home');
         localStorage.setItem('isLoggedIn', 'true')
         console.log('Login successful')
     }
 
     const handleHome = () => {
-        setIsLoggingIn(false);
-        setIsSigningUp(false);
+        setStatus('home')
     }
 
     const handleSignupSuccess = () => {
-        setIsSigningUp(false);
-        setIsLoggingIn(true);
+        setStatus('home')
     };
 
 
@@ -90,7 +84,7 @@ const App: React.FC = () =>{
              </div>
         )}
 
-        {isLoggingIn  ? <LoginForm onLoginSuccess={handleLoginSuccess}/> : null}
+        {isLoggingIn ? <LoginForm onLoginSuccess={handleLoginSuccess}/> : null}
         {isSigningUp ? <SignupForm onSignupSuccess={handleSignupSuccess}/>: null}
       </div>
   );

@@ -20,6 +20,7 @@ const LoginForm: React.FC<LoginFormProps> = ({onLoginSuccess}) => {
             method: 'POST',
             credentials: "include",
             referrerPolicy:"origin",
+            redirect: "manual",
             headers: {
                 'Content-Type': 'application/json',
             },
