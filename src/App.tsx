@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignupForm"
+import Profile from "./components/Profile";
 
 const App: React.FC = () =>{
 
@@ -13,6 +14,7 @@ const App: React.FC = () =>{
     const isLoggingIn = status === 'login';
     const isSigningUp = status === 'signup';
     const isHome = status === 'home';
+    const isProfile = status === 'profile'
 
     const checkAuthentication = () => {
         const isAuthenticated = localStorage.getItem('isLoggedIn');
@@ -45,14 +47,6 @@ const App: React.FC = () =>{
             });
     }
 
-    const handleLogin = () => {
-        setStatus('login')
-    }
-
-
-    const handleSignup = () => {
-        setStatus('signup')
-    }
 
     const handleLoginSuccess = () => {
         setIsLoggedIn(true);
@@ -61,31 +55,34 @@ const App: React.FC = () =>{
         console.log('Login successful')
     }
 
-    const handleHome = () => {
-        setStatus('home')
-    }
-
     const handleSignupSuccess = () => {
         setStatus('home')
     };
 
-
+    
     return (
       <div className="app">
-          <span onClick={handleHome} className="heading">Q's Gameshow</span>
-          {isLoggedIn ? (
-              <div>
-                  <button className="btnlogout" onClick={handleLogout}>logout</button>
-              </div>
-          ) : (
-             <div>
-                 {!isLoggingIn ? <button className="btnlogin" onClick={handleLogin} type="submit">log in</button> : null}
-                 {!isSigningUp ? <button className="btnsignup" onClick={handleSignup} type="submit">sign up</button> : null}
-             </div>
-        )}
+          <span onClick={() => setStatus('home')} className="heading">Q's Gameshow</span>
+          <div>
+              {isLoggedIn ? (
+                  <div>
+                      <button className="btnlogout" onClick={handleLogout}>logout</button>
+                      <button className="btnprofile" onClick={() => setStatus('profile')}>profile</button>
+                  </div>
+              ) : (
+                  <div>
+                      {!isLoggingIn ? <button className="btnlogin" onClick={() => setStatus('login')} type="submit">log in</button> : null}
+                      {!isSigningUp ? <button className="btnsignup" onClick={() => setStatus('signup')} type="submit">sign up</button> : null}
+                  </div>
+              )}
+          </div>
+          <div>
+            {isLoggingIn ? <LoginForm onLoginSuccess={handleLoginSuccess}/> : null}
+            {isSigningUp ? <SignupForm onSignupSuccess={handleSignupSuccess}/>: null}
+            {isProfile ? <Profile/> : null}
+          </div>
 
-        {isLoggingIn ? <LoginForm onLoginSuccess={handleLoginSuccess}/> : null}
-        {isSigningUp ? <SignupForm onSignupSuccess={handleSignupSuccess}/>: null}
+
       </div>
   );
 }

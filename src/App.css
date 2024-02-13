@@ -54,11 +54,28 @@
     border-radius: 10px;
 }
 
+.btnprofile{
+    color: black;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 87px;
+    margin: 30px;
+
+    font-family: "Poor Story", cursive;
+}
+
+.btnprofile:hover {
+    border: 2px solid slategrey;
+    border-radius: 10px;
+}
+
 .btnlogout{
     color: black;
     background-color: orangered;
     position: fixed;
-    top: 0;
+    top: 43px;
     right: 0;
     width: 87px;
     margin: 30px;
