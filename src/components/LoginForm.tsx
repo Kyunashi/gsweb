@@ -1,4 +1,5 @@
 import React from 'react'
+import './LoginForm.css'
 
 interface LoginFormProps {
     onLoginSuccess: () => void;
@@ -48,17 +49,16 @@ const LoginForm: React.FC<LoginFormProps> = ({onLoginSuccess}) => {
 
 
     return (
-        <div>
-                <form onSubmit={handleSubmit}>
-                    <label>
-                        Username:
-                        <input type="text" value={username} onChange={(event) => setUsername(event.target.value)}/>
+        <div >
+                <form  className={'loginform'} onSubmit={handleSubmit}>
+                    <label className={'usernamelbl'}>
+                        Username
                     </label>
-                    <label>
-                        Password:
-                        <input type="password" value={password} onChange={(event) => setPassword(event.target.value)}/>
+                    <input className={'usernameinput'} type="text" value={username} onChange={(event) => setUsername(event.target.value)}/>
+                    <label className={'passwordlbl'}>Password
                     </label>
-                    <button type="submit">Login</button>
+                        <input className={'passwordinput'} type="password" value={password} onChange={(event) => setPassword(event.target.value)}/>
+                    <button className={'loginbtn'} type="submit">Login</button>
                 </form>
         </div>
     );

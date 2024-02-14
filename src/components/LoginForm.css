@@ -1,0 +1,49 @@
+.loginform{
+    background-color: #61dafb;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.passwordlbl{
+    text-align: left;
+    width: 250px;
+}
+
+.passwordinput{
+    background-color: deepskyblue;
+    border-color: deepskyblue;
+    width: 230px;
+    outline-color: blue;
+
+}
+.passwordinput::selection{
+    border-color: blue;
+}
+
+.usernamelbl{
+    text-align: left;
+    width: 250px;
+}
+
+.usernameinput{
+    background-color: deepskyblue;
+    border-color: deepskyblue;
+    width: 230px;
+}
+
+.loginbtn{
+    font-family: "Poor Story", cursive;
+    width: 250px;
+    background-color: forestgreen;
+    height: 30px;
+    text-align: center;
+    line-height: 5px;
+    font-size: 18px;
+}
+
+.loginbtn:hover{
+    background-color: limegreen;
+}
