@@ -1,42 +1,33 @@
 import React from "react";
 
-const Profile: React.FC =  () => {
-
-    const [userData, setUserData] = React.useState( {
-        email: '',
-        username: '',
-        created: ''
-    })
-
-
-    React.useEffect(() => {
-        fetchUserdata();
-    }, [])
-
-    const fetchUserdata = async () => {
-        const response = await fetch('http://192.168.178.42:8080/api/users/current', {
-            method: "GET",
-            credentials: "include"
-        })
-        if (response.ok) {
-            const user = await  response.json()
-            console.log('Profile found: ', user);
-            setUserData(user);
-        } else {
-            console.log("Error: ", response.json())
-        }
+interface ProfileProps  {
+    userData: {
+        email: string,
+        username: string,
+        playername: string
     }
+}
+const Profile: React.FC<ProfileProps> =  ({userData}) => {
+
+    const {email, username, playername} = userData;
+
+
+    // React.useEffect(() => {
+    //     fetchUserdata();
+    // }, [])
+
+
 
     return (
         <div>
             <p>
-            {userData.email}
+            {email}
             </p>
             <p>
-            {userData.username}
+            {username}
             </p>
             <p>
-            {userData.created}
+            {playername}
             </p>
         </div>
     );

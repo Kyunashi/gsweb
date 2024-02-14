@@ -10,6 +10,11 @@ const App: React.FC = () =>{
         return localStorage.getItem('isLoggedIn') === 'true';
     });
     const [status, setStatus] = React.useState('home');
+    const [userData, setUserData] = React.useState( {
+        email: '',
+        username: '',
+        playername: ''
+    })
 
     const isLoggingIn = status === 'login';
     const isSigningUp = status === 'signup';
@@ -47,6 +52,24 @@ const App: React.FC = () =>{
             });
     }
 
+    const fetchUserdata = async () => {
+        try {
+            const response = await fetch('http://192.168.178.42:8080/api/users/current', {
+                method: "GET",
+                credentials: "include"
+            })
+            if (!response.ok) {
+                throw new Error('Failed to fetch user data')
+            }
+                const jsonData = await  response.json()
+                console.log('Profile found: ', jsonData);
+                setUserData(jsonData);
+
+        } catch(error) {
+            console.log('Error fetching userdata: ', error);
+        }
+    }
+
 
     const handleLoginSuccess = () => {
         setIsLoggedIn(true);
@@ -59,7 +82,12 @@ const App: React.FC = () =>{
         setStatus('home')
     };
 
-    
+
+    const handleProfile = () => {
+        fetchUserdata();
+        setStatus('profile');
+    }
+
     return (
       <div className="app">
           <span onClick={() => setStatus('home')} className="heading">Q's Gameshow</span>
@@ -67,19 +95,19 @@ const App: React.FC = () =>{
               {isLoggedIn ? (
                   <div>
                       <button className="btnlogout" onClick={handleLogout}>logout</button>
-                      <button className="btnprofile" onClick={() => setStatus('profile')}>profile</button>
+                      <button className="btnprofile" onClick={handleProfile}>profile</button>
                   </div>
               ) : (
                   <div>
-                      {!isLoggingIn ? <button className="btnlogin" onClick={() => setStatus('login')} type="submit">log in</button> : null}
-                      {!isSigningUp ? <button className="btnsignup" onClick={() => setStatus('signup')} type="submit">sign up</button> : null}
+                      <button className="btnlogin" onClick={() => setStatus('login')} type="submit">log in</button>
+                      <button className="btnsignup" onClick={() => setStatus('signup')} type="submit">sign up</button>
                   </div>
               )}
           </div>
           <div>
             {isLoggingIn ? <LoginForm onLoginSuccess={handleLoginSuccess}/> : null}
             {isSigningUp ? <SignupForm onSignupSuccess={handleSignupSuccess}/>: null}
-            {isProfile ? <Profile/> : null}
+            {isProfile ? <Profile userData={userData}/> : null}
           </div>
 
 
