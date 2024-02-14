@@ -1,8 +1,8 @@
 .loginform{
     background-color: #61dafb;
     padding-bottom: 10px;
-    padding-right: 10px;
-    padding-left: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
     border-radius: 5px;
     box-sizing: border-box;
 }
@@ -19,20 +19,28 @@
     outline-color: blue;
 
 }
-.passwordinput::selection{
+.passwordinput:focus{
     border-color: blue;
 }
 
 .usernamelbl{
     text-align: left;
     width: 250px;
+    margin-top: 20px;
 }
 
 .usernameinput{
     background-color: deepskyblue;
     border-color: deepskyblue;
     width: 230px;
+    outline: none;
 }
+
+.usernameinput:focus{
+    border: 10px  blue;
+
+}
+
 
 .loginbtn{
     font-family: "Poor Story", cursive;

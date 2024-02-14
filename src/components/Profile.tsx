@@ -11,6 +11,9 @@ const Profile: React.FC<ProfileProps> =  ({userData}) => {
 
     const {email, username, playername} = userData;
 
+    React.useEffect(() => {
+        document.title = 'Profile';
+    }, [])
 
     // React.useEffect(() => {
     //     fetchUserdata();

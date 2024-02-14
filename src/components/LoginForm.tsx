@@ -10,6 +10,9 @@ const LoginForm: React.FC<LoginFormProps> = ({onLoginSuccess}) => {
     const [password, setPassword] = React.useState('');
 
 
+    React.useEffect(() => {
+        document.title = 'Login';
+    }, [])
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 

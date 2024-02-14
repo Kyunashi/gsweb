@@ -16,6 +16,10 @@ const App: React.FC = () =>{
         playername: ''
     })
 
+    React.useEffect(() => {
+        document.title = 'Home';
+    }, [])
+
     const isLoggingIn = status === 'login';
     const isSigningUp = status === 'signup';
     const isHome = status === 'home';

@@ -24,6 +24,9 @@ const SignupForm: React.FC<SignupFormProps> = ({onSignupSuccess}) => {
     });
     // TODO EMAIL VALIDATION (has @, ends on known ending) patter?
 
+    React.useEffect(() => {
+        document.title = 'Sign Up';
+    }, [])
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
