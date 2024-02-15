@@ -17,6 +17,7 @@
     border-color: deepskyblue;
     width: 230px;
     outline-color: blue;
+    outline: none;
 
 }
 .passwordinput:focus{
@@ -33,11 +34,12 @@
     background-color: deepskyblue;
     border-color: deepskyblue;
     width: 230px;
+    outline-color: blue;
     outline: none;
 }
 
 .usernameinput:focus{
-    border: 10px  blue;
+    border-color: blue;
 
 }
 
@@ -54,4 +56,28 @@
 
 .loginbtn:hover{
     background-color: limegreen;
+}
+
+.loginfailedcontainer{
+    border: 2px solid darkred;
+    margin-top: 10px;
+    border-radius: 5px;
+    background-color: rgba(250,0,0, .5);
+
+}
+
+.loginfailed{
+    margin-left: 15px;
+}
+
+.closebtn{
+    color: #ff0000;
+    font-size: 20px;
+    background: transparent;
+    width: 10px;
+    margin-left: 5px;
+}
+
+.closebtn:hover{
+    color: #eb5959;
 }

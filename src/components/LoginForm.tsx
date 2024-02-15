@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './LoginForm.css'
 
 interface LoginFormProps {
@@ -8,7 +8,7 @@ interface LoginFormProps {
 const LoginForm: React.FC<LoginFormProps> = ({onLoginSuccess}) => {
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
-
+    const [loginFailed, setLoginFailed] = useState(false);
 
     React.useEffect(() => {
         document.title = 'Login';
@@ -41,7 +41,8 @@ const LoginForm: React.FC<LoginFormProps> = ({onLoginSuccess}) => {
                         "password": password,
                     }))
                 } else {
-                    // Authentication failed
+                    setLoginFailed(true);
+                    setPassword('');
                     console.error('Login failed');
                 }
             })
@@ -53,16 +54,24 @@ const LoginForm: React.FC<LoginFormProps> = ({onLoginSuccess}) => {
 
     return (
         <div >
-                <form  className={'loginform'} onSubmit={handleSubmit}>
-                    <label className={'usernamelbl'}>
-                        Username
-                    </label>
-                    <input className={'usernameinput'} type="text" value={username} onChange={(event) => setUsername(event.target.value)}/>
-                    <label className={'passwordlbl'}>Password
-                    </label>
-                        <input className={'passwordinput'} type="password" value={password} onChange={(event) => setPassword(event.target.value)}/>
-                    <button className={'loginbtn'} type="submit">Login</button>
-                </form>
+            <form  className={'loginform'} onSubmit={handleSubmit}>
+                <label className={'usernamelbl'}>
+                    Username
+                </label>
+                <input className={'usernameinput'} type="text" value={username} onChange={(event) => setUsername(event.target.value)}/>
+                <label className={'passwordlbl'}>Password
+                </label>
+                    <input className={'passwordinput'} type="password" value={password} onChange={(event) => setPassword(event.target.value)}/>
+                <button className={'loginbtn'} type="submit">Login</button>
+            </form>
+            {loginFailed ?
+                <div className={'loginfailedcontainer'}>
+                    <div className={'loginfailed'}>
+                        <label>Incorrect username or password</label>
+                        <button className={'closebtn'} onClick={() => setLoginFailed(false)}>x</button>
+                    </div>
+                </div>
+                : null}
         </div>
     );
 };
