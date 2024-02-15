@@ -1,20 +1,22 @@
 .loginform{
-    background-color: #61dafb;
+    background-color: steelblue;
     padding-bottom: 10px;
     padding-right: 15px;
     padding-left: 15px;
     border-radius: 5px;
+    border: 1px solid lightslategrey;
     box-sizing: border-box;
 }
 
 .passwordlbl{
     text-align: left;
     width: 250px;
+    color: white;
 }
 
 .passwordinput{
     background-color: deepskyblue;
-    border-color: deepskyblue;
+    border: 1px solid lightslategrey;
     width: 230px;
     outline-color: blue;
     outline: none;
@@ -28,11 +30,12 @@
     text-align: left;
     width: 250px;
     margin-top: 20px;
+    color: white;
 }
 
 .usernameinput{
     background-color: deepskyblue;
-    border-color: deepskyblue;
+    border: 1px solid lightslategrey;
     width: 230px;
     outline-color: blue;
     outline: none;
@@ -59,10 +62,10 @@
 }
 
 .loginfailedcontainer{
-    border: 2px solid darkred;
-    margin-top: 10px;
+    border: 2px solid #a80017;
+    margin-top: 15px;
     border-radius: 5px;
-    background-color: rgba(250,0,0, .5);
+    background-color: rgba(250,0,0, .33);
 
 }
 
@@ -80,4 +83,8 @@
 
 .closebtn:hover{
     color: #eb5959;
+}
+
+.errorlbl{
+    color: white;
 }

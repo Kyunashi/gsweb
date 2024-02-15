@@ -67,7 +67,7 @@ const LoginForm: React.FC<LoginFormProps> = ({onLoginSuccess}) => {
             {loginFailed ?
                 <div className={'loginfailedcontainer'}>
                     <div className={'loginfailed'}>
-                        <label>Incorrect username or password</label>
+                        <label className={'errorlbl'}>Incorrect username or password</label>
                         <button className={'closebtn'} onClick={() => setLoginFailed(false)}>x</button>
                     </div>
                 </div>
