@@ -3,6 +3,8 @@ import './App.css';
 import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignupForm"
 import Profile from "./components/Profile";
+import Home from "./components/Home";
+
 
 const App: React.FC = () =>{
 
@@ -111,7 +113,7 @@ const App: React.FC = () =>{
           <div>
             {isLoggingIn ? <LoginForm onLoginSuccess={handleLoginSuccess}/> : null}
             {isSigningUp ? <SignupForm onSignupSuccess={handleSignupSuccess}/>: null}
-            {isProfile ? <Profile userData={userData}/> : null}
+            {isProfile ? <Profile userData={userData}/> : null}{isHome ? <Home/> : null}
           </div>
 
 

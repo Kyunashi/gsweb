@@ -50,7 +50,7 @@
 .loginbtn{
     font-family: "Poor Story", cursive;
     width: 250px;
-    background-color: forestgreen;
+    background-color: #0ab804;
     height: 30px;
     text-align: center;
     line-height: 5px;
@@ -65,7 +65,7 @@
     border: 2px solid #a80017;
     margin-top: 15px;
     border-radius: 5px;
-    background-color: rgba(250,0,0, .33);
+    background-color: rgba(255,0,0, .4);
 
 }
 
