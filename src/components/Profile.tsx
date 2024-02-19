@@ -15,11 +15,6 @@ const Profile: React.FC<ProfileProps> =  ({userData}) => {
         document.title = 'Profile';
     }, [])
 
-    // React.useEffect(() => {
-    //     fetchUserdata();
-    // }, [])
-
-
 
     return (
         <div>

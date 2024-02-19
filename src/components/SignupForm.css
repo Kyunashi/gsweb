@@ -1,0 +1,29 @@
+.signupform{
+    background-color: steelblue;
+    padding-bottom: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-top: 10px;
+    border-radius: 5px;
+    border: 1px solid lightslategrey;
+    text-align: left;
+}
+
+.signupbtn{
+    font-family: "Poor Story", cursive;
+    width: 250px;
+    background-color: #0ab804;
+    height: 30px;
+    text-align: center;
+    line-height: 5px;
+    font-size: 18px;
+}
+.signupbtn:hover{
+    background-color: limegreen;
+}
+
+
+.errorlbl{
+    color: red;
+}
+

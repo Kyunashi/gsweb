@@ -78,57 +78,57 @@ const SignupForm: React.FC<SignupFormProps> = ({onSignupSuccess}) => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Username:
-                    <input type="text" maxLength={12} value={formData.username}
-                           onChange={event => {
-                               setFormData({
-                                   ...formData,
-                                   username: event.target.value
-                               })
-                           }}
-                    />
+            <form className={'signupform'} onSubmit={handleSubmit}>
+                <label className={'inputlbl'}>
+                    Username
                 </label>
-                <label>
-                    Email:
-                    <input type="text" value={formData.email}
-                           onChange={(event) =>{
-                                setFormData({
-                                    ...formData,
-                                    email: event.target.value
-                                })
-                            }}
-                    />
+                <input className={'input'} type="text" maxLength={12} value={formData.username}
+                       onChange={event => {
+                           setFormData({
+                               ...formData,
+                               username: event.target.value
+                           })
+                       }}
+                />
+                <label className={'inputlbl'}>
+                    Email
                 </label>
-                <label>
-                    Password:
-                    <input type="password" value={formData.password}
-                           onChange={(event) => {
-                               setFormData({
-                                   ...formData,
-                                   password: event.target.value
-                               })
-                           }}
-                    />
+                <input className={'input'}type="text" value={formData.email}
+                       onChange={(event) =>{
+                            setFormData({
+                                ...formData,
+                                email: event.target.value
+                            })
+                        }}
+                />
+                <label className={'inputlbl'}>
+                    Password
                 </label>
-                <label>
-                    Confirm:
-                    <input type="password" value={formData.repeatPassword}
-                           onChange={(event) => {
-                               setFormData({
-                                   ...formData,
-                                   repeatPassword: event.target.value
-                               })
-                           }}
-                    />
+                <input className={'input'} type="password" value={formData.password}
+                       onChange={(event) => {
+                           setFormData({
+                               ...formData,
+                               password: event.target.value
+                           })
+                       }}
+                />
+                <label className={'inputlbl'}>
+                    Confirm
                 </label>
-                <button type="submit" className={"btnregister"}>Register</button>
-                {validationErrors.passwordTooShort ? (<label className={"lblpwdtooshort"}>password is too short </label>) : null}
-                {validationErrors.passwordMissmatch ? (<label className={"lblpwdmissmatch"}>passwords dont match! </label>) : null}
-                {validationErrors.usernameInvalid ? (<label className={"lblusernameinvalid"}>username has to be 3 or more ALPHANUMERIC characters </label>) : null}
-                {validationErrors.emailInvalid ? (<label className={"lblemailinvalid"}>email has to be more than 5 characters</label>) : null}
-                {usernameTaken ? (<label className={"lblusernametaken"}>username is taken </label>) : null}
+                <input className={'input'} type="password" value={formData.repeatPassword}
+                       onChange={(event) => {
+                           setFormData({
+                               ...formData,
+                               repeatPassword: event.target.value
+                           })
+                       }}
+                />
+                <button type="submit" className={"signupbtn"}>Register</button>
+                {validationErrors.passwordTooShort ? (<label className={"errorlbl"}>password is too short </label>) : null}
+                {validationErrors.passwordMissmatch ? (<label className={"errorlbl"}>passwords dont match! </label>) : null}
+                {validationErrors.usernameInvalid ? (<label className={"errorlbl"}>username has to be 3 or more ALPHANUMERIC characters </label>) : null}
+                {validationErrors.emailInvalid ? (<label className={"errorlbl"}>email has to be more than 5 characters</label>) : null}
+                {usernameTaken ? (<label className={"errorlbl"}>username is taken </label>) : null}
             </form>
         </div>)
 }

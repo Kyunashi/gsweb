@@ -55,13 +55,13 @@ const LoginForm: React.FC<LoginFormProps> = ({onLoginSuccess}) => {
     return (
         <div >
             <form  className={'loginform'} onSubmit={handleSubmit}>
-                <label className={'usernamelbl'}>
+                <label className={'inputlbl'}>
                     Username
                 </label>
-                <input className={'usernameinput'} type="text" value={username} onChange={(event) => setUsername(event.target.value)}/>
-                <label className={'passwordlbl'}>Password
+                <input className={'input'} type="text" value={username} onChange={(event) => setUsername(event.target.value)}/>
+                <label className={'inputlbl'}>Password
                 </label>
-                    <input className={'passwordinput'} type="password" value={password} onChange={(event) => setPassword(event.target.value)}/>
+                    <input className={'input'} type="password" value={password} onChange={(event) => setPassword(event.target.value)}/>
                 <button className={'loginbtn'} type="submit">Login</button>
             </form>
             {loginFailed ?
