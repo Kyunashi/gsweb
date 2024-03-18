@@ -85,7 +85,7 @@ const Home: React.FC = () => {
 
         // @ts-ignore
         stompClient.publish({
-            destination: "/websocket/hi/",
+            destination: "/websocket/hi",
             body: JSON.stringify({'name' : "Kyew"})
         })
 
