@@ -2,14 +2,19 @@ import React, {useEffect, useRef} from "react";
 import {Client} from "@stomp/stompjs";
 
 const Home: React.FC = () => {
-
     const [isConnected, setIsConnected] = React.useState(false);
     const [greeting, setGreeting] = React.useState('');
+    const [roomInfo, setRoomInfo] = React.useState({
+        roomId: null,
+        players: [],
+        playerIndex: null
+    });
     const stompClientRef = useRef<Client | null>(null);
+
 
     if (!stompClientRef.current) {
         stompClientRef.current = new Client({
-            brokerURL: 'ws://192.168.178.42:8080/create'
+            brokerURL: 'ws://192.168.178.42:8080/websocket'
         });
     }
     const stompClient = stompClientRef.current;
@@ -17,8 +22,11 @@ const Home: React.FC = () => {
     stompClient.onConnect = (frame) => {
         setIsConnected(true);
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/room/greetings', (greeting) => {
-            setGreeting(JSON.parse(greeting.body).content);
+        stompClient.subscribe('/user/queue/room-updates', (greeting) => {
+            const answer = JSON.parse(greeting.body);
+            console.log(answer);
+            setRoomInfo(answer);
+            setGreeting(answer.roomId + " with players: " + JSON.stringify(answer.players, null, 2) + " idx: " + answer.playerIndex);
         });
     }
 
@@ -62,33 +70,48 @@ const Home: React.FC = () => {
 
         if(isConnected){
 
-            disconnect();
+            stompClient?.publish({
+                destination: "/room/create",
+                body: JSON.stringify({
+                    'name' : "Kyew",
+                    'color': "black"
+                })
+            })
             return;
         }
-        // @ts-ignore
-        stompClient.configure({brokerURL: 'ws://192.168.178.42:8080/create'})
+
+
         connect();
+
     }
 
     const handleJoinRoom = () => {
 
+        console.log("Current roomId: " + roomInfo.roomId);
         if(isConnected){
-            disconnect();
+            stompClient?.publish({
+                destination: "/room/join",
+                body: JSON.stringify({
+                    'roomId': roomInfo.roomId,
+                    'name' : "NotKyew",
+                    'color': "blue"
+                })
+            })
             return;
         }
-        // @ts-ignore
-        stompClient.configure({brokerURL: 'ws://192.168.178.42:8080/join'})
+
         connect();
     }
 
     const sendMessage = () => {
 
-        // @ts-ignore
-        stompClient.publish({
-            destination: "/websocket/hi",
-            body: JSON.stringify({'name' : "Kyew"})
-        })
-
+        if(isConnected) {
+            // @ts-ignore
+            stompClient.publish({
+                destination: "/room/hi",
+                body: JSON.stringify({'name' : "Kyew"})
+            })
+        }
     }
 
 
@@ -101,8 +124,8 @@ const Home: React.FC = () => {
           <button className={'createbtn'} onClick={handleCreateRoom}>create room</button>
           <button className={'sendbtn'} onClick={handleSend}>send</button>
           {isConnected ? <label>Connected :D</label> : <label>Disconnected :(</label>}
-          <label>{greeting}</label>
-          <label> </label>
+          <pre>{greeting}</pre>
+          <label></label>
       </div>
     );
 }
