@@ -89,6 +89,12 @@ const Home: React.FC = () => {
 
         console.log("Current roomId: " + roomInfo.roomId);
         if(isConnected){
+            stompClient.subscribe('/room/' + roomInfo.roomId + '/updates', (update) => {
+                const answer = JSON.parse(update.body);
+                setRoomInfo(answer);
+                console.log(answer);
+                setGreeting(answer.roomId + " with players: " + JSON.stringify(answer.players, null, 2) + " idx: " + answer.playerIndex);
+            });
             stompClient?.publish({
                 destination: "/room/join",
                 body: JSON.stringify({
