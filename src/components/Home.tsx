@@ -63,14 +63,16 @@ const Home: React.FC = () => {
     function disconnect() {
 
         console.log("disconnecting")
+        if(!isConnected) {
         // @ts-ignore
-        stompClient.deactivate()
-            .then(value => {
-                setIsConnected(false);
-                setGreeting('');
-                console.log('Disconnected');
+            stompClient.deactivate()
+                .then(value => {
+                    setIsConnected(false);
+                    setGreeting('');
+                    console.log('Disconnected');
 
-            })
+                })
+        }
     }
 
 
